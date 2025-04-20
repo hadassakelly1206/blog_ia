@@ -1,5 +1,3 @@
-import schedule
-import time
 from noticias.gnews_api import buscar_noticias
 from wordpress.wordpress_api import publicar_post, obter_ids_tags
 from conteudo.gerador_conteudo import gerar_conteudo_blog, gerar_titulo

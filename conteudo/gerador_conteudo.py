@@ -85,7 +85,7 @@ def gerar_imagem(titulo_post):
 
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    prompt = f"Imagem moderna e minimalista em preto e branco que represente: {titulo_post}"
+    prompt = f"Imagem moderna e MINIMALISTA em preto e branco que represente, não faça nada que tenha muita poluição visual: {titulo_post}"
 
     response = openai.Image.create(
         model="dall-e-3",

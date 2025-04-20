@@ -10,20 +10,20 @@ import re
 
 
 
-# Carregar variáveis do ambiente
+
 load_dotenv()
 
-# Carregar o token do WordPress do arquivo .env
-WORDPRESS_URL = "https://rafaelaltomare.com.br/wp-json/wp/v2/posts"  # Substitua com a URL do seu WordPress
+
+WORDPRESS_URL = "https://rafaelaltomare.com.br/wp-json/wp/v2/posts"
 
 
-# Função para gerar conteúdo utilizando a API do OpenAI
+
 def gerar_conteudo_blog(noticias):
     import openai
 
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    # Cria um texto com base nas notícias
+
     noticias_formatadas = "\n".join([f"Título: {n['titulo']}\nDescrição: {n['descricao']}\nLink: {n['url']}" for n in noticias])
 
     try:
@@ -69,7 +69,7 @@ def gerar_titulo(conteudo_gerado):
         )
 
         titulo_bruto = resposta.choices[0].message.content.strip()
-        # Remove aspas simples e duplas do início e fim, se existirem
+        
         titulo_limpo = titulo_bruto.strip('"').strip("'")
         return titulo_limpo
 
@@ -97,7 +97,7 @@ def gerar_imagem(titulo_post):
 
     imagem_b64 = response["data"][0]["b64_json"]
 
-    # Criar nome do arquivo a partir do título
+    
     slug = re.sub(r'\W+', '-', titulo_post.lower())[:50]
     data = datetime.datetime.now().strftime("%Y%m%d%H%M")
     nome_arquivo = f"imagem_{slug}_{data}.png"

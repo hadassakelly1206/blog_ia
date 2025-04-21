@@ -1,0 +1,33 @@
+name: Post Blog Automatically
+
+on:
+  workflow_dispatch:  # 🔹 permite rodar manualmente
+  schedule:
+    - cron: '0 12 * * 1'  # Segunda-feira às 9h BRT (12h UTC)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checar o repositório
+        uses: actions/checkout@v2
+
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+
+      - name: Rodar script de postagem
+        run: |
+          python main.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          WP_URL: ${{ secrets.WP_URL }}
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_PASS: ${{ secrets.WP_PASS }}
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
